@@ -21,6 +21,7 @@
 #  MA 02110-1301, USA.
 #
 '''
+import colorzero
 try:
 	from Tkinter import *
 except ImportError:
@@ -57,13 +58,6 @@ from	Tooltip	import *
 from	NotePage import BasicNotepage
 from	PreferencesDialog import *
 
-try:
-	import 	picamera
-	from 		picamera import *
-	import 	picamera.array
-except ImportError:
-	raise ImportError("You do not seem to have picamera installed")
-
 class AnnotationOverlayDialog ( Dialog ):
 	def BuildDialog ( self ):
 		n = Notebook(self.MainFrame,padding=(5,5,5,5))
@@ -95,7 +89,7 @@ class AnnotationPage ( BasicNotepage ):
 	Textsize = 32
 	ColorYValue = 1.0
 	UseForeColor = False
-	ForeColor = picamera.Color('white')
+	ForeColor = colorzero.Color('white')
 	UseBackColor = False
 	BackColor = None
 	@staticmethod
@@ -108,7 +102,7 @@ class AnnotationPage ( BasicNotepage ):
 		Textsize = 32
 		ColorYValue = 1.0
 		UseForeColor = False
-		ForeColor = picamera.Color('white')
+		ForeColor = colorzero.Color('white')
 		UseBackColor = False
 		BackColor = None
 	def BuildPage ( self ):
@@ -176,7 +170,7 @@ class AnnotationPage ( BasicNotepage ):
 
 		self.AnnotationBackgroundColor(False)
 		self.AnnotationForegroundColor(False)
-		self.BackColor = picamera.Color('Black')
+		self.BackColor = colorzero.Color('Black')
 	def AnnotationTextRadio ( self, EnableAddText ):
 		if EnableAddText:
 			self.AnnotateTextEntry.config(state='normal')
@@ -226,19 +220,19 @@ class AnnotationPage ( BasicNotepage ):
 				 title='Annotation Background color')
 		# [0] is (R,G,B) tuple, [1] is hex value of color
 		if result[0] == None: return 	# Cancel
-		self.BackColor = picamera.Color(result[1])
-		self.camera.annotate_background = picamera.Color(result[1])
+		self.BackColor = colorzero.Color(result[1])
+		self.camera.annotate_background = colorzero.Color(result[1])
 	def AnnotationForegroundColor ( self, AddColor ):
 		if AddColor:
 			self.camera.annotate_foreground = \
-				picamera.Color(y=float(self.Ycolor.get()), u=0, v=0)
+				colorzero.Color(y=float(self.Ycolor.get()), u=0, v=0)
 			self.Ycolor.state(['!disabled'])
 			self.Ycolor.focus_set()
 		else:
 			self.Ycolor.state(['disabled'])
-			self.camera.annotate_foreground = picamera.Color('white')
+			self.camera.annotate_foreground = colorzero.Color('white')
 	def YValueChanged ( self, val ):
-		self.camera.annotate_foreground = picamera.Color(y=float(val), u=0, v=0)
+		self.camera.annotate_foreground = colorzero.Color(y=float(val), u=0, v=0)
 		AnnotationPage.YValue = float(val)
 		self.Ylabel.config(text='Y: %.2f' % float(val))
 	def AnnotateTextSizeChanged ( self, newVal ):
