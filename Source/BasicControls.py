@@ -24,10 +24,6 @@
 
 import os
 from   collections import OrderedDict
-import RPi.GPIO
-
-# If no RPi.GPIO, then disable the ability to toggle the camera LED
-RPiGPIO = True
 
 try:
 	import 	ttk

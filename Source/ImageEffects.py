@@ -57,13 +57,6 @@ from	Utils		import *
 from	Tooltip	import *
 from	NotePage import BasicNotepage
 
-try:
-	import 	picamera
-	from 		picamera import *
-	import 	picamera.array
-except ImportError:
-	raise ImportError("You do not seem to have picamera installed")
-
 '''
 When queried, the image_effect_params property either returns None
 (for effects which have no configurable parameters, or if no parameters

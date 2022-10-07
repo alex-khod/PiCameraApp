@@ -61,9 +61,9 @@ class ToolTip( Toplevel ):
 	TipLines = []				# All the tip text in lines
 	@staticmethod
 	def LoadToolTips ( ):	# Perhaps allow a reload of tips?
-		tipsFile = open("Assets/Tooltips.txt", "r")
+		tipsFile = open("Assets/Tooltips.txt", "rb")
 		if tipsFile:
-			ToolTip.TipLines = tipsFile.read().split('\n')
+			ToolTip.TipLines = tipsFile.read().decode("ansi").split('\n')
 			tipsFile.close()
 		else:
 			print ( "Error opening file 'Assets/Tooltips.txt'" )
