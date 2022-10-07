@@ -107,7 +107,7 @@ class PiCameraApp(Frame):
     # Some statics used elsewhere
     ExposureModeText = None
 
-    def __init__(self, root, camera, title):
+    def __init__(self, root, camera, title, inject_gui=None):
         Frame.__init__(self, root)
 
         self.grid(padx=5, pady=5)
@@ -140,6 +140,9 @@ class PiCameraApp(Frame):
         image = PIL.Image.open('Assets/video-icon-b.png')
         self.iconVideoBig = GetPhotoImage(image.resize((22, 22)))
         self.iconVideo = GetPhotoImage(image.resize((16, 16)))
+
+        if inject_gui is not None:
+            inject_gui(root, self)
 
         # ------------ Notebook with all camera control pages -----------
         frame1 = ttk.Frame(master, padding=(5, 5, 5, 5))
@@ -1148,7 +1151,7 @@ class PiCameraApp(Frame):
             self.CanvasPopup.grab_release()
 
 
-def Run():
+def Run(inject_gui=None):
     try:
         win = Tk()
     except:
@@ -1170,7 +1173,7 @@ def Run():
         return
 
     win.minsize(1024, 768)
-    app = PiCameraApp(win, camera, title="PiCamera")
+    app = PiCameraApp(win, camera, title="PiCamera", inject_gui=inject_gui)
     win.mainloop()
     camera.close()
 
